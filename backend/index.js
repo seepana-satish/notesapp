@@ -1,9 +1,16 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const config = require("./config.json");
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-mongoose.connect(config.connectionString);
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("✅ MongoDB Connected");
+  })
+  .catch((err) => {
+    console.error("❌ MongoDB Connection Error:", err);
+    process.exit(1);
+  });
 
 const User = require('./models/user.model');
 const Note = require('./models/note.model');
@@ -312,9 +319,5 @@ app.get('/search-notes/',authenticateToken, async(req , res)=>{
     }
 });
 
-const PORT = process.env.PORT || 8000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(8000);
 module.exports = app ;
