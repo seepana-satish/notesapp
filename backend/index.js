@@ -28,7 +28,6 @@ app.get('/' ,(req , res) => {
 });
 
 // get started the Backend !!!
-
 // create account : 
 
 app.post('/create-account',async (req , res)=> {
@@ -116,9 +115,9 @@ app.post('/login' , async (req, res) => {
 
 // // Get user
 app.get('/get-user', authenticateToken, async(req , res) => {
-    const { user} = req.user;
+    const {user} = req.user;
 
-    const isUser = await User.findOne({_id : user._id});
+    const isUser = await User.findOne({_id:user._id});
 
     if (!isUser){
         return res.sendStatus(401);
@@ -128,8 +127,8 @@ app.get('/get-user', authenticateToken, async(req , res) => {
                 email : isUser.email,
                 "_id" : isUser._id},
                 createdOn : isUser.createdOn,
-        message : "",
-    });
+        message : "",}
+    );
 });
 
 // Add Notes
