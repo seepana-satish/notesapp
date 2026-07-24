@@ -1,26 +1,38 @@
-import React from 'react'
-import {FaMagnifyingGlass} from 'react-icons/fa6';
-import { IoMdClose } from 'react-icons/io';
+import React from "react";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import { IoMdClose } from "react-icons/io";
 
-const SearchBar = ({value , onChange , handleSearch , onClearSearch}) => {
-  return <div className='w-full sm:w-80 flex items-center px-4 bg-slate-100 rounded-md'>
-    <input type="text"
-    placeholder='Search Notes'
-    className='w-full text-xs bg-transparent py-[11px] outline-none'
-    value={value}
-    onChange={onChange}
-    />
+const SearchBar = ({
+  value,
+  onChange,
+  handleSearch,
+  onClearSearch,
+}) => {
+  return (
+    <div className="w-full h-14 flex items-center px-5 bg-gray-50 border border-gray-200 rounded-full shadow-sm">
 
-    {value && (<IoMdClose
-     className='text-slate-500 cursor-pointer hover:text-black mr-3'
-    onClick={onClearSearch}
-    />
-    )}
-    <FaMagnifyingGlass 
-      className ='text-slate-400 cursor-pointer hover:text-black'
-      onClick={handleSearch} 
-    />
-  </div>
-}
+      <FaMagnifyingGlass
+        className="text-gray-400 text-lg cursor-pointer hover:text-blue-500 transition"
+        onClick={handleSearch}
+      />
+
+      <input
+        type="text"
+        placeholder="Search notes..."
+        className="flex-1 bg-transparent px-4 text-sm text-gray-700 outline-none placeholder:text-gray-400"
+        value={value}
+        onChange={onChange}
+      />
+
+      {value && (
+        <IoMdClose
+          className="text-gray-400 text-xl cursor-pointer hover:text-red-500 transition"
+          onClick={onClearSearch}
+        />
+      )}
+
+    </div>
+  );
+};
 
 export default SearchBar;

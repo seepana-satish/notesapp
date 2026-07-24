@@ -1,11 +1,10 @@
-import moment from 'moment';
-import React from 'react';
-import {MdOutlinePushPin} from 'react-icons/md';
-import { MdCreate, MdDelete } from 'react-icons/md';
+import moment from "moment";
+import React from "react";
+import { MdOutlinePushPin, MdCreate, MdDelete } from "react-icons/md";
 
 const NoteCard = ({
-  title ,
-  date ,
+  title,
+  date,
   content,
   tags,
   isPinned,
@@ -13,37 +12,73 @@ const NoteCard = ({
   onDelete,
   onPinNote,
 }) => {
-
   return (
-    <div className='border rounded p-4 bg-white hover:shadow-xl transition-all ease-in-out'>
-      <div className='flex items-center justify-between'>
+    <div className="bg-white rounded-2xl p-5 border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300">
+
+      {/* Header */}
+      <div className="flex items-start justify-between">
+
         <div>
-          <h6 className='text-sm font-medium'>
+          <h2 className="text-lg font-semibold text-gray-800">
             {title}
-          </h6>
-          <span className='text-xs text-slate-500'>{moment(date).format('Do MM YYYY')}</span>
+          </h2>
+
+          <p className="text-xs text-gray-500 mt-1">
+            {moment(date).format("DD MMM YYYY")}
+          </p>
         </div>
-        <MdOutlinePushPin 
-        className={`icon-btn ${isPinned ? 'text-primary' : 'text-slate-300'}`}
-        onClick ={onPinNote} />
+
+        <button
+          onClick={onPinNote}
+          className={`text-2xl transition ${
+            isPinned ? "text-blue-600" : "text-gray-300 hover:text-blue-500"
+          }`}
+        >
+          <MdOutlinePushPin />
+        </button>
+
       </div>
-      <p className='text-xs text-slate-600 mt-2'>
-       {content?.slice(0, 60)}</p>
-       <div className='flex items-center justify-between mt-2'>
-        <div className='text-xs text-slate-500'>
-          {tags?.map(item => `#${item}`)} 
+
+      {/* Content */}
+      <p className="text-sm text-gray-600 mt-4 leading-6">
+        {content?.slice(0, 120)}
+        {content?.length > 120 && "..."}
+      </p>
+
+      {/* Footer */}
+      <div className="flex items-center justify-between mt-5">
+
+        <div className="flex flex-wrap gap-2">
+          {tags?.map((item, index) => (
+            <span
+              key={index}
+              className="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full"
+            >
+              #{item}
+            </span>
+          ))}
         </div>
-        <div className='flex items-center gap-2'>
-          <MdCreate 
-          className='icon-btn hover:text-green-600' 
-          onClick={onEdit}
-          />
-          <MdDelete 
-          className='icon-btn hover:text-red-500'
-          onClick={onDelete}
-          />
-          </div>
+
+        <div className="flex items-center gap-3">
+
+          <button
+            onClick={onEdit}
+            className="text-gray-500 hover:text-green-600 text-xl transition"
+          >
+            <MdCreate />
+          </button>
+
+          <button
+            onClick={onDelete}
+            className="text-gray-500 hover:text-red-600 text-xl transition"
+          >
+            <MdDelete />
+          </button>
+
+        </div>
+
       </div>
+
     </div>
   );
 };
