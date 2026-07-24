@@ -1,42 +1,63 @@
-import React,  { useState } from 'react';
-import ProfileInfo from '../Cards/ProfileInfo'
-import { useNavigate } from 'react-router-dom'
-import SearchBar from '../SearchBar/SearchBar';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ProfileInfo from "../Cards/ProfileInfo";
+import SearchBar from "../SearchBar/SearchBar";
 
+const Navbar = ({ userInfo, onSearchNote }) => {
+  const [searchQuery, setSearchQuery] = useState("");
 
-const Navbar = ( { userInfo , onSearchNote }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-  
   const navigate = useNavigate();
 
-  const onLogout = () =>{
+  const onLogout = () => {
     localStorage.clear();
-    navigate('/login')
+    navigate("/login");
   };
 
-  const handleSearch = () => {};
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      onSearchNote(searchQuery);
+    }
+  };
 
   const onClearSearch = () => {
-    setSearchQuery('');
+    setSearchQuery("");
+    onSearchNote("");
   };
 
   return (
-    <div className='bg-white flex flex-col sm:flex-row items-center justify-between px-6 py-2 gap-2 sm:gap-0 drop-shadow'>
-        <h2 className='text-xl font-medium text-black py-2'>
-                Notes
-        </h2>
-        <SearchBar 
-        value={searchQuery}
-         onChange={({target}) =>{
-        setSearchQuery(target.value);         
-      }}
-      handleSearch={handleSearch}
-      onClearSearch={onClearSearch}
-      />   
-      <ProfileInfo userInfo={userInfo} onLogout={onLogout}/> 
-        
-    </div>
-  )
+    <nav className="bg-white shadow-md px-4 md:px-8 py-3 sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+
+        {/* Logo */}
+        <div className="w-full md:w-auto flex justify-center md:justify-start">
+          <h2 className="text-3xl font-bold text-blue-600 tracking-wide">
+            Notes
+          </h2>
+        </div>
+
+        {/* Search */}
+        <div className="w-full md:flex-1 md:px-10 flex justify-center">
+          <div className="w-full md:max-w-xl">
+            <SearchBar
+              value={searchQuery}
+              onChange={({ target }) => setSearchQuery(target.value)}
+              handleSearch={handleSearch}
+              onClearSearch={onClearSearch}
+            />
+          </div>
+        </div>
+
+        {/* Profile */}
+        <div className="w-full md:w-auto flex justify-center md:justify-end">
+          <ProfileInfo
+            userInfo={userInfo}
+            onLogout={onLogout}
+          />
+        </div>
+
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;
