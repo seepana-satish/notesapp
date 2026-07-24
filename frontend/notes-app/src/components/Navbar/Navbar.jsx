@@ -21,7 +21,7 @@ const Navbar = ( { userInfo , onSearchNote }) => {
   };
 
   return (
-    <div className='bg-white flex items-center justify-between px-6 py-2 drop-shadow'>
+    <div className='bg-white flex flex-col sm:flex-row items-center justify-between px-6 py-2 gap-2 sm:gap-0 drop-shadow'>
         <h2 className='text-xl font-medium text-black py-2'>
                 Notes
         </h2>
